@@ -5,7 +5,7 @@ describe('Basic Practice', () => {
     cy.visit('/jetsetter');
   });
 
-  describe('Adding a new item', () => {
+  describe.skip('Adding a new item', () => {
     it('should appear on the page after clicking on "Add Item"', () => {
       const item = 'Good Attitude';
 
@@ -34,7 +34,7 @@ describe('Basic Practice', () => {
     });
   });
 
-  describe('Filtering items', () => {
+  describe.skip('Filtering items', () => {
     it('should show items that match whatever is in the filter field', () => {
       cy.get('[data-test="filter-items"]').type('Tooth');
 
@@ -64,7 +64,7 @@ describe('Basic Practice', () => {
     });
   });
 
-  describe('Removing items', () => {
+  describe.skip('Removing items', () => {
     describe('Remove all', () => {
       it('should remove all of the elements from the page', () => {
         cy.get('[data-test="remove-all"]').click();
@@ -103,7 +103,7 @@ describe('Basic Practice', () => {
     });
   });
 
-  describe('Mark all as unpacked', () => {
+  describe.skip('Mark all as unpacked', () => {
     it('should empty out the "Packed" list', () => {
       cy.get('[data-test="mark-all-as-unpacked"]').click();
       cy.get('[data-test="items-packed"] li').should('not.exist');
