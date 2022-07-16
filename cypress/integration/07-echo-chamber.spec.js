@@ -11,7 +11,10 @@ describe('Initial Page', () => {
 
   it('should have the title of the application in the window', () => {});
 
-  it('should navigate to "/sign-in" when you click the "Sign In" button', () => {});
+  it('should navigate to "/sign-in" when you click the "Sign In" button', () => {
+    cy.get('[data-test="sign-in"]').click();
+    cy.location('pathname').should('equal', '/echo-chamber/sign-in');
+  });
 
   it('should navigate to "/sign-up" when you click the "Sign Up" button', () => {});
 });

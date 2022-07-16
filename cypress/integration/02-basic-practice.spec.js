@@ -5,7 +5,7 @@ describe('Basic Practice', () => {
     cy.visit('/jetsetter');
   });
 
-  describe.skip('Adding a new item', () => {
+  describe('Adding a new item', () => {
     it('should put a new item on the page after clicking on "Add Item"', () => {
       const item = 'Binocs';
       cy.get('[data-test="new-item-input"]').type(item);
@@ -31,7 +31,7 @@ describe('Basic Practice', () => {
     });
   });
 
-  describe.skip('Filtering items', () => {
+  describe('Filtering items', () => {
     it('should show items that match whatever is in the filter field', () => {
       cy.get('[data-test="filter-items"]').type('Tooth'); // type in the input
 
@@ -39,14 +39,14 @@ describe('Basic Practice', () => {
       cy.contains('Tooth Paste');
     });
 
-    // the reverse: use of ther ! not operator (NOPE)
+    // the reverse: use of ther ! not operator (NOPE) - should('not.exist')
     it('should hide items that do not match whatever is in the filter field', () => {
       cy.get('[data-test="filter-items"]').type('Tooth');
       cy.contains('Hoodie').should('not.exist'); // use of .should('not exist') as a !
     });
   });
 
-  describe.skip('Removing items', () => {
+  describe('Removing items', () => {
     describe('Remove all', () => {
       it('should remove all of the items', () => {
         cy.get('[data-test="remove-all"]').click();
@@ -76,7 +76,7 @@ describe('Basic Practice', () => {
     });
   });
 
-  describe.skip('Mark all as unpacked', () => {
+  describe('Mark all as unpacked', () => {
     it('should empty out the "Packed" list', () => {
       // basic
       // cy.get('[data-test="mark-all-as-unpacked"]').click();
