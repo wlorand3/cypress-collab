@@ -7,7 +7,7 @@ const user = {
 
 describe('Sign Up', () => {
   beforeEach(() => {
-    cy.task('reset');
+    // cy.task('reset');
   });
 
   it('should successfully create a user when entering an email and a password', () => {
