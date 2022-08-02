@@ -12,9 +12,9 @@ export const encodeToken = (token) => Buffer.from(JSON.stringify(token)).toStrin
 
 describe('Signing in with a seeded database', () => {
   beforeEach(() => {
-    cy.task('seed');
+    cy.task('seed'); // node task
     cy.visit('/echo-chamber/sign-in');
-    cy.signIn(user);
+    cy.signIn(user); // command
   });
 
   it('should be able to log in', () => {

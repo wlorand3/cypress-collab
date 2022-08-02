@@ -55,12 +55,15 @@ describe('Pokémon Search', () => {
     // - this stubs an api - no need for api server to be running;
     // - with .intercept, we are effectively "eating" the response and issuing our own response
     cy.intercept('/pokemon-search/api?*', { pokemon }).as('stubbed-api');
+
     // a2- know you can also test one piece of the mock data and use the fixture: keyword
     //  - note: this works only if there is a file named bulbasaur.json in the fixtures/ dir
     // cy.intercept('/pokemon-search/api/1', {fixture: 'bulbasaur'}) // inline fixture or external JSON file
     cy.get('@search').type('lol');
+
     // b- wait for the api call - this ensures the api got called
     cy.wait('@stubbed-api');
+
     // c- assert : good example of checking the length of the mock data
     cy.get('[data-test="result"]').should('have.length', 3); // tests the search results
   });
@@ -108,7 +111,7 @@ describe('Pokémon Search', () => {
     cy.location('pathname').should('contain', '/pokemon-search/1');
   });
 
-  it.only('9- should immediately fetch a pokémon if a url query parameter is provided', () => {
+  it('9- should immediately fetch a pokémon if a url query parameter is provided', () => {
     cy.intercept('/pokemon-search/api?*', { pokemon }).as('stubbed-api');
 
     // how logic? - check the cy.location('pathmame') - nope

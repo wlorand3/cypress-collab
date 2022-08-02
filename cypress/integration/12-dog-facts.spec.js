@@ -3,7 +3,7 @@
 describe('Dog Facts', () => {
   beforeEach(() => {
     cy.visit('/dog-facts');
-
+    // mass aliases
     cy.get('[data-test="fetch-button"]').as('fetchButton');
     cy.get('[data-test="clear-button"]').as('clearButton');
     cy.get('[data-test="amount-select"]').as('amountSelect');
@@ -16,13 +16,42 @@ describe('Dog Facts', () => {
     cy.get('@emptyState');
   });
 
-  it('should make a request when the button is called', () => {});
+  it('should make a request when the button is called', () => {
+    cy.get('@fetchButton').click();
+    cy.wait('@api');
+  });
 
-  it('should adjust the amount when the select is changed', () => {});
+  it('should no longer have an empty state after a fetch', () => {
+    cy.get('@fetchButton').click();
+    cy.get('@emptyState').should('not.exist');
+  });
 
-  it('should show the correct number of facts on the page', () => {});
+  it('should adjust the amount when the select is changed', () => {
+    cy.get('@amountSelect').select('4');
+    cy.get('@fetchButton').click();
+    cy.wait('@api').then((interception) => {
+      expect(interception.request.url).to.match(/\?amount=4$/);
+    });
+  });
 
-  it('should clear the facts when the "Clear" button is pressed', () => {});
+  it('should show the correct number of facts on the page', () => {
+    // something like should.be.3 as assertion  .should('have.length', 6)
+    cy.get('@amountSelect').select('6');
+    cy.get('@fetchButton').click();
+    cy.get('[data-test="dog-fact"]').should('have.length', 6);
+  });
 
-  it("should reflect the number of facts we're looking for in the title", () => {});
+  it('should clear the facts when the "Clear" button is pressed', () => {
+    cy.get('@amountSelect').select('6');
+    cy.get('@fetchButton').click();
+    cy.get('@clearButton').click();
+    cy.get('@emptyState');
+  });
+
+  // read the UI
+  it("should reflect the number of facts we're looking for in the title", () => {
+    cy.title().should('equal', '3 Dog Facts'); // html title of the page
+    cy.get('@amountSelect').select('6');
+    cy.title().should('equal', '6 Dog Facts');
+  });
 });
